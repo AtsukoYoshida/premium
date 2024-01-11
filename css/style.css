@@ -1,0 +1,474 @@
+/*全体リセット*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding:  0;
+}
+
+/*全体設定*/
+body {
+    font-family: 'Radio Canada', 'Noto Sans JP', sans-serif;
+}
+
+a,a:visited{
+    color: black;
+}
+
+.container {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+@media screen and (min-width:768px) {
+.sp-only,
+.gnav-menu_sp,
+.sns-sp {
+    display: none;
+  }
+.pc-only,
+.gnav-menu_pc,
+.sns {
+    display: block;
+  }
+}
+  
+@media screen and (max-width:768px) {
+.sp-only,
+.sns-sp{
+      display: block;
+    }
+.pc-only,
+.gnav-menu_pc,
+.sns {
+      display: none !important;
+    }
+}
+
+/*サイドバー
+aside{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+    aside{
+    width: 200px;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    background: #fff;
+}
+}*/
+
+/*ヘッダー*/
+.header {
+    background: #fff;
+    position: fixed;
+    top: 0;
+    z-index: 200;
+    height: 60px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .logo {
+    width: 160px;
+    margin: auto;
+    padding-top: 15px;
+  }
+
+  .logo img {
+    width: 100%;   
+  }
+
+@media screen and (min-width: 768px) {
+    .header{
+        width: 200px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+    }
+    
+    .logo {
+        width: 80%;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/*ナビゲーション*/
+.pc-only{
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.gnav-menu_pc,
+.gnav-menu_sp{
+    align-items: center;
+    list-style: none;
+}
+
+.gnav-menu_pc{
+    width: 90%;
+    height: 70vh;
+    align-items: start;
+    transform: none !important;
+    transition: none !important;
+    margin: 0;
+}
+
+.gnav-menu_pc li {
+    line-height:  1em;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 18px;
+    text-align: left;
+    font-size: 13px;
+    }
+
+/*リンクスタイルの適用・下線*/
+.gnav-menu_pc li a,
+.gnav-menu_sp li a {
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 3px;
+    }
+
+ .gnav-menu_pc li a::after,
+ .gnav-menu_sp li a::after {
+    content: "";
+	position: absolute;
+	left: 0;
+	bottom: -1px;
+	width: 100%;
+	height: 1px;
+	background: #555;
+	transform: scale(0, 1);
+	transform-origin: left;
+	transition: 0.4s;
+}
+.gnav-menu_pc li a:hover::after,
+.gnav-menu_sp li a:hover::after {
+    transform: scale(1);
+}
+
+/*SNSアイコン*/
+.sns,
+.sns-sp {
+    bottom: 0;
+    z-index: 10;
+}
+
+.sns li,
+.sns-sp li{
+    display: inline-flex;
+    list-style: none;
+}
+
+.sns li a,
+.sns-sp li a{
+    padding: 8px;
+    margin: 0;
+}
+
+/*ハンバーガーメニュー*/
+@media screen and (max-width: 768px) {
+    .gnav-toggle{
+        margin-top: 5px;
+    }
+    
+    .gnav-hidden{
+        display: none;
+    }
+    
+    #gnav-open{
+        width: 60px;
+        height: 60px;
+        display: block;
+        position: fixed;
+        top:0px;
+        right: 10px;
+        z-index: 300;
+        background: url("..//img/ico-nav-close.svg")center center no-repeat;
+    }
+    
+    
+    #gnav-open span,
+    #gnav-open span::before,
+    #gnav-open span::after{
+        content:'';
+        position: absolute;
+        display: block;
+        cursor: pointer;
+    }
+    
+    /*閉じる用の薄黒箇所*/
+    #gnav-close {
+        display: none;
+        position: fixed;
+        z-index: 90;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        background: #fff;
+        opacity: 10;
+        transition: 0.3s ease-in-out;
+      }
+      
+    /*チェックで表示*/
+    #gnav-input:checked~#gnav-open {
+        background:url("..//img/ico-nav.svg")center center no-repeat;
+        display: block;
+        opacity: 0.5;
+      }  
+    #gnav-input:checked~#gnav-content {
+        right: 0;
+      }
+      
+    /*メニューの中身*/
+    #gnav-content {
+        position: fixed;
+        top: 0;
+        right: 100%;
+        z-index: 100;
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        background: rgba(255, 252, 252, 1);
+        transition: 0.3s ease-in-out;
+        transform: translateX(100%);
+      }
+      
+    .gnav-menu_sp{
+        top: 0;
+        right:0;
+        width: 100%;
+        height: 80vh;
+        transform: translateX(0%);
+        transition: 0.5s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .gnav-menu_sp li{
+        color: #000;
+        font-size: 16px;
+        display: block;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+        line-height:  1em;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        text-transform: uppercase;
+    }
+}
+
+/*メインビジュアル*/
+main{
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+main{
+    background: #fff;
+    padding-left: 200px;
+}
+}
+
+
+/*メインNEWコンテナー*/
+.new-container{
+    width: 100%;
+    height: 100vh; /* 最大縦の幅 */
+    background:url("../img/mv-bg@2x.jpg")center center repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-mg img{
+    max-height: calc(100vh - 60px); /* 縦の幅 */
+}
+
+.main-mg-txt{
+    position: absolute;
+    bottom: 54px;
+    margin-left: -24%;
+}
+
+.main-number {
+    font-size: 1.8vw;
+    display: inline;
+    line-height:1.6em;
+	background-color: #fff;
+    }
+
+.main-title {
+    font-size: 3vw;
+    display: inline;
+    line-height:1.4em;
+    background-color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    .main-mg img{
+        max-height: 70vh; /* 縦の幅 */
+    }
+    .main-number{
+        font-size: 2vw;
+    }
+    .main-title {
+        font-size: 4vw;
+    }
+}
+
+/*バックナンバータイトル*/
+h2{
+    display: block;
+    padding: 1.5em;
+    font-size: 12px;
+    font-weight: normal;
+    background: #f8f8f8;
+    }
+
+h2::first-line {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+@media screen and (max-width: 768px) {
+    h2{
+        font-size: 12px;
+    }
+    h2::first-line {
+        font-size: 18px;
+        font-weight: normal;
+    }
+}
+
+/*バックナンバー*/
+.back-number{
+    width: 100%;
+}
+
+.back-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    justify-items: stretch;
+    justify-self: stretch;
+    align-items: stretch;
+    width: auto;
+    max-height: 100vh; /* 最大幅 */   
+}
+
+.back-list img{
+    max-width: 20vw; /* 横最大 */
+    min-width: 4vw; /* 横最小 */
+    padding-top: 10px;
+}
+
+.back-list-txt{
+    color: black;
+    text-align: left;
+    padding-top: 30px;
+}
+
+.back-date,
+.back-number{
+    font-size: 1.2vw;
+    font-weight: 100;
+    line-height:1.6em;
+}
+
+.back-title{
+    font-size: 1.8vw;
+}
+
+.shadow{
+    filter: drop-shadow(1px 1px 6px rgba(0,0,0,0.4));
+}
+
+.l101{
+    background: #ECF4F9;
+    padding: 50px;
+}
+
+.l100{
+    background: #FBF3D2;
+    padding: 50px;
+}
+
+.l99{
+    background: #f9f2eb;
+    padding: 50px;
+}
+
+.l98{
+    background: #fae8c2;
+    padding: 50px;
+}
+
+.l97{
+    background: #e2efe7;
+    padding: 50px;
+}
+
+.l96{
+    background: #f2f5fb;
+    padding: 50px;
+}
+
+@media screen and (max-width: 768px) {
+.back-list{
+    text-align: center;
+    display: block;
+    }
+.back-list img{
+    width: 60%;
+    max-width: 300px;
+    margin: auto;
+    }
+
+.back-date,
+.back-number{
+    font-size: 2vw !important;
+    font-weight: 100;
+    line-height:1.6em;
+    }
+.back-title{
+    font-size: 3.6vw !important;
+    }  
+}
